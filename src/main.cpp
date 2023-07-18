@@ -55,7 +55,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	calibration(pathEnum_All);
+	path1();
 }
 
 /**
@@ -102,9 +102,9 @@ void opcontrol() {
 			right2.move(right);
 		}
 
-		if (master.get_digital(DIGITAL_L2)){
+		if (master.get_digital(DIGITAL_L1)){
 			intake.move(127);
-		} else if (master.get_digital(DIGITAL_L1)){
+		} else if (master.get_digital(DIGITAL_L2)){
 			intake.move(-127);
 		} else {
 			intake.move(0);
