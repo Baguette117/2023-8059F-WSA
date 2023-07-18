@@ -1,7 +1,7 @@
 #include "main.h"
 #include "pros/rtos.h"
-#define akp .4
-#define akd 0
+#define akp 1.2
+#define akd 2.4
 #define akt 2.5 //Degrees of wheel turn to turn base 1 degree
 #define akm 28.6478897565 //Degrees of wheel turn to 1 inch
 
@@ -37,15 +37,16 @@ void autonPID(void *ignore){
             delay(5);
         }
 
-        targReach = -15 < errLeft && errLeft < 15 && -15 < errRight && errRight < 15;
+        targReach = -7.5 < errLeft && errLeft < 7.5 && -7.5 < errRight && errRight < 7.5;
 
+        printf("posLeft: %.2f posRight: %f targLeft: %f targRight: %f, errLeft: %f, errRight: %f\n", left1.get_position(), right1.get_position(), targLeft, targRight, errLeft, errRight);
         delay(15);
     }
 }
 
 void move(double inches, int time = 0){
-    targLeft += inches;
-    targRight += inches;
+    targLeft += inches*akm;
+    targRight += inches*akm;
     printf("Move: %f\n", inches);
 
     delay(500);
@@ -58,11 +59,13 @@ void move(double inches, int time = 0){
             delay(20);
         }
     }
+
+    delay(1000);
 }
 
 void turn(double degrees, int time = 0){
-    targLeft += degrees;
-    targRight -= degrees;
+    targLeft += degrees*akt;
+    targRight -= degrees*akt;
     printf("Turning: %f\n", degrees);
 
     delay(500);
@@ -75,6 +78,8 @@ void turn(double degrees, int time = 0){
             delay(20);
         }
     }
+
+    delay(1000);
 }
 
 void calibration(pathEnumT path){
@@ -92,4 +97,16 @@ void calibration(pathEnumT path){
             turn(90);
             break;
     }
+
+    autonPIDTask.remove();
+}
+
+void path1(){
+    Task autonPIDTask (autonPID, (void*)"BALLS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "autonPIDTask");
+    
+    move(-30, 3);
+    move(5, 2);
+    move(-30, 3);
+
+    autonPIDTask.remove();
 }
