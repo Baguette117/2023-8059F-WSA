@@ -105,8 +105,8 @@ void path1(){
     Task autonPIDTask (autonPID, (void*)"BALLS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "autonPIDTask");
     
     move(-30, 3);
-    move(5, 2);
-    move(-30, 3);
+    //move(5, 2);
+    //move(-30, 3);
 
     autonPIDTask.remove();
 }
