@@ -1,5 +1,4 @@
 #include "main.h"
-#include "pros/rtos.h"
 #define akp 1.2
 #define akd 2.4
 #define akt 2.5 //Degrees of wheel turn to turn base 1 degree
@@ -105,8 +104,8 @@ void path1(){
     Task autonPIDTask (autonPID, (void*)"BALLS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "autonPIDTask");
     
     move(-30, 3);
-    //move(5, 2);
-    //move(-30, 3);
+    move(5, 2);
+    move(-30, 3);
 
     autonPIDTask.remove();
 }
