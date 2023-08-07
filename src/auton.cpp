@@ -50,7 +50,7 @@ void move(double inches, int time = 0){
 
     delay(500);
 
-    if (time){
+    if (time != 0){
         delay(time);
     } else {
         while (!targReach) {
@@ -69,7 +69,7 @@ void turn(double degrees, int time = 0){
 
     delay(500);
 
-    if (time){
+    if (time != 0){
         delay(time);
     } else {
         while (!targReach) {
@@ -103,8 +103,8 @@ void calibration(pathEnumT path){
 void path1(){
     Task autonPIDTask (autonPID, (void*)"BALLS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "autonPIDTask");
     
-    move(-30, 3);
-    move(5, 2);
+    move(-40, 3);
+    move(15, 2);
     move(-30, 3);
 
     autonPIDTask.remove();
